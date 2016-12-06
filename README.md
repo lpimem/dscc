@@ -1,4 +1,6 @@
 # dscc
+`dscc` is a set of experiments trying to classify unlabeled data by combining clustering and classfication methods. 
+
 ## Requirement
 - Python3.5
 - numpy
