@@ -1,6 +1,5 @@
 from sklearn import cluster
 from sklearn.neighbors import kneighbors_graph
-from skfuzzy.cluster import cmeans as fuzzy_kmeans
 import numpy as np
 from collections import Counter
 from .kmeans import FuzzyKMeans
