@@ -5,6 +5,7 @@
 - Python3.5
 - numpy
 - scikit-learn
+- pandas
 - pylab
 - bokeh ([Guide](http://bokeh.pydata.org/en/latest/docs/user_guide/quickstart.html#userguide-quickstart))
 
