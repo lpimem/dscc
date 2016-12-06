@@ -61,29 +61,6 @@ def classier_only(ds, classier):
 def init_svc():
     return SVC(kernel="rbf", tol=0.001, decision_function_shape="ovr")
 
-# def resemble_results(tags, results):
-#     import pandas as pd
-#     df = {
-#         "method": [],
-#         "accuracy": []
-#     }
-#     method = []
-#     scores = []
-#     for i in range(len(tags)):
-#         tag_cluster = "{tags[i]}"
-#         tag_svm = "{tags[i]}_svm"
-#         method.append(tag_cluster)
-#         method.append(tag_svm)
-#         scores.extend(results[i])
-#         df["method"].append(tag_cluster)
-#         df["method"].append(tag_svm)
-#         df["accuracy"].extend(results[i])
-#     # df = {
-#     #     "methods": pd.Series(method),
-#     #     "accuracy": pd.Series(scores)
-#     # }
-#     return pd.DataFrame(df)
-
 def assemble_result_df(cmethods, dr_methods, scores_acc):
     import pandas as pd
     df = {}
@@ -103,16 +80,12 @@ def plot(df):
             values="accuracy", agg="mean", color="model",\
             legend=None, bar_width=0.3, plot_width=600, plot_height=600)
     p.logo = None
-    # p.toolbar_location = None
+    # will open a browser to show the plot.
     show(p)
-    # import ggplot as gg
-    # p = gg.ggplot(gg.aes(x=gg.interaction("model", "dim reduction"), y="accuracy"), data=df) + gg.geom_bar()
-    # print(p)
 
 
-def main():
-    df = cache.load("result")
-    # df = None
+def main(use_cache=True):
+    df = cache.load("result") if use_cache else None
     if df is None:
         N_CATS = 2
         ds = load_news_group_ds(N_CATS)
@@ -122,30 +95,22 @@ def main():
             "AgglomerativeClustering",
             "FuzzyKMeans",
         ]
+
         exp_r = 0
         exp_r_pre = 0
         cls_r = 0
         cls_r_pre = 0
-
         cmethods = []
         dr_methods = []
-        # use_cluster = []
         scores_acc = []
-        # scores_cluster = []
-        # scores_svm = []
-
         def fill_result(cm, dm, r, cr):
             for i in [0, 1]:
                 cmethods.append([cm+"+SVM", "SVM"][i])
                 dr_methods.append(dm)
                 scores_acc.append([r, cr][i])
 
-            # scores_cluster.append(r)
-            # scores_svm.append(cr)
-
         for cmethod in clustering_methods:
             for dr_method in DataSet.DIM_REDUCTION_METHODS:
-            # for dr_method in ["select_k_best"]:
                 try:
                     exp_r = exp(ds, cmethod, init_svc(), N_CATS,
                         dr_method=dr_method, use_cache=True)
@@ -153,17 +118,21 @@ def main():
                     exp_r = exp_r_pre
                 finally:
                     exp_r_pre = exp_r
+                
                 try: 
                     cls_r = classier_only(ds, init_svc())
                 except:
                     cls_r = cls_r_pre
                 finally:
                     cls_r_pre = cls_r
+                
                 fill_result(cmethod, dr_method, exp_r, cls_r)
                 ds.restore()
+        # pack result into a pandas DataFrame object for plotting
         df = assemble_result_df(cmethods, dr_methods, scores_acc)
+        # save packed result for future use.
         cache.save("result", df)
     plot(df)
 
 if __name__ == '__main__':
-    main()
+    main(use_cache=True)

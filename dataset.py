@@ -35,10 +35,8 @@ class DataSet:
         elif method == "select_k_best":
             self.apply_select_k_best()
         else:
-            print(method, "method not found. Dataset not changed")
+            print(method, "method not found. Dataset is not changed")
         if method in DataSet.DIM_REDUCTION_METHODS:
-            # print("before", method, ":", self.origin_X.shape)
-            # print("after", method, ":", self.X.shape)
             self._dr = True
 
     def restore(self):
@@ -52,7 +50,8 @@ class DataSet:
         args = {}
         if n_c is None:
             if self.X.shape[0] < self.X[0].shape[0]:
-                # n_components="mle", svd_solver = 'full'
+                # will reduce dimentions to [m, m] 
+                #     where m=min(n_samples, n_features)
                 args = {
                     "n_components": "mle",
                     "svd_solver": 'full'
@@ -91,14 +90,13 @@ def load_news_group_ds(n_cats):
                                          random_state=42,
                                          remove=remove)
     # ---------
+    # Taken from sk-learn website. 
     # Print loaded data size .
-
     def size_mb(docs):
         return sum(len(s.encode('utf-8')) for s in docs) / 1e6
 
     data_train_size_mb = size_mb(newsgroups_train.data)
     data_test_size_mb = size_mb(newsgroups_test.data)
-
     print("%d documents - %0.3fMB (training set)" % (
         len(newsgroups_train.data), data_train_size_mb))
     print("%d documents - %0.3fMB (test set)" % (
