@@ -43,3 +43,19 @@ We implemented a python-based program to compare the accurate scores of differen
 Figure-4 Comparison of Alternative methods
 
 Figure-4 shows the comparison result of our test. The bare SVM + PCA method out performs all other clustering+SVM methods as expected. Our comparison shows aside from fuzzy k-means, other clustering methods could also be effective with respect to accuracy of the trained classifier. For detailed result data, please see Appendix table II.
+
+## References
+
+[4] Sk-Learn: Unsupervised Dimensionality Reduction http://scikit-learn.org/stable/modules/unsupervised_reduction.html 
+
+[5] Sk-learn: Random Projection http://scikit-learn.org/stable/modules/random_projection.html#random-projection 
+
+[6] Sk-learn: Feature Selection http://scikit-learn.org/stable/modules/feature_selection.html 
+
+[7] Winkler, R., Klawonn, F., & Kruse, R. Fuzzy c-means in high dimensional spaces. 2012. Contemporary Theory and Pragmatic Approaches in Fuzzy Computing Utilization, 1.
+
+[8] "spectral-clustering — Scikit-Learn 0.18.1 Documentation". 2016. Scikit-Learn.Org. Accessed December 6 2016. http://scikit-learn.org/stable/modules/clustering.html#spectral-clustering.
+
+[9] "hierarchical-clustering — Scikit-Learn 0.18.1 Documentation". 2016. Scikit-Learn.Org. Accessed December 6 2016. http://scikit-learn.org/stable/modules/clustering.html#hierarchical-clustering.
+
+[10] "5.6.2. The 20 Newsgroups Text Dataset — Scikit-Learn 0.18.1 Documentation". 2016. Scikit-Learn.Org. Accessed December 6 2016. http://scikit-learn.org/stable/datasets/twenty_newsgroups.html. 
