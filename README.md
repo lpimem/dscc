@@ -39,5 +39,7 @@ We implemented a python-based program to compare the accurate scores of differen
 
 ### 4.3 Comparison results
 
+![](https://raw.githubusercontent.com/lpimem/dscc/master/result.png)
 Figure-4 Comparison of Alternative methods
+
 Figure-4 shows the comparison result of our test. The bare SVM + PCA method out performs all other clustering+SVM methods as expected. Our comparison shows aside from fuzzy k-means, other clustering methods could also be effective with respect to accuracy of the trained classifier. For detailed result data, please see Appendix table II.
